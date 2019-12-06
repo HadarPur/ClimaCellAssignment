@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B5FBD5E6-BA74-48EE-B396-91E6DDDFBB98"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "468BA2D9-B099-4D83-99E1-6D74CC7C0448"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClimaCell/Logic/Switcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "updateRootVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "67D567CD-BA6E-45E5-BA1E-B760B0986ED2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClimaCell/Logic/Switcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "updateRootVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "077BBC83-677F-49ED-8C5E-A851B6772908"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClimaCell/Data/ClimaCellAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "getSession(url:apiKey:callback:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "077BBC83-677F-49ED-8C5E-A851B6772908 - 6d10eb25052df584"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClimaCell.ClimaCellAPI.(getSession in _ED2D580E6BC510B8B7214A19355812AB)(url: Swift.String, apiKey: Swift.String, callback: (Swift.Array&lt;ClimaCell.ClimaCellAPI.ClimaCellObj&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "ClimaCell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hpur/Desktop/ClimaCell/ClimaCell/Data/ClimaCellAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "1190">
+               </Location>
+               <Location
+                  uuid = "077BBC83-677F-49ED-8C5E-A851B6772908 - 803252ff54b448e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in ClimaCell.ClimaCellAPI.(getSession in _ED2D580E6BC510B8B7214A19355812AB)(url: Swift.String, apiKey: Swift.String, callback: (Swift.Array&lt;ClimaCell.ClimaCellAPI.ClimaCellObj&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "ClimaCell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hpur/Desktop/ClimaCell/ClimaCell/Data/ClimaCellAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "204">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4CA550B8-6BC6-45F3-ACDE-0FD14C896750"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClimaCell/Data/ClimaCellAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "getSession(url:apiKey:callback:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8ED5DAD-B63D-435C-8C61-DB8C49B47D02"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClimaCell/Data/ClimaCellAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "getSession(url:apiKey:callback:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
