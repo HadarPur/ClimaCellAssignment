@@ -14,29 +14,13 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClimaCellLogo" highlightedImage="ClimaCellLogo" translatesAutoresizingMaskIntoConstraints="NO" id="dI0-ca-wPr">
-                                <rect key="frame" x="87" y="384" width="240" height="138"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="dI0-ca-wPr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="DIv-Je-Z8p"/>
-                            <constraint firstItem="dI0-ca-wPr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="340" id="E1S-3x-Y5B"/>
-                            <constraint firstItem="dI0-ca-wPr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="MYE-wn-Cng"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dI0-ca-wPr" secondAttribute="bottom" constant="340" id="QBl-yZ-aGw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dI0-ca-wPr" secondAttribute="trailing" constant="87" id="hq8-WZ-Hxa"/>
-                            <constraint firstItem="dI0-ca-wPr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="87" id="q7w-NJ-UUv"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="ClimaCellLogo" width="1250" height="1053.5"/>
-    </resources>
 </document>

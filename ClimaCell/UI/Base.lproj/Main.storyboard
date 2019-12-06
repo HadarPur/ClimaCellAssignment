@@ -16,26 +16,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Xxe-FS-K8o">
-                                <rect key="frame" x="188.5" y="550" width="37" height="20"/>
+                                <rect key="frame" x="188.5" y="549.5" width="37" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="37" id="R2R-U8-U5U"/>
                                     <constraint firstAttribute="height" constant="20" id="sv3-MW-ZVc"/>
                                 </constraints>
                             </activityIndicatorView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClimaCellLogo" highlightedImage="ClimaCellLogo" translatesAutoresizingMaskIntoConstraints="NO" id="W6b-3r-9qs">
-                                <rect key="frame" x="66.5" y="388.5" width="281" height="129"/>
+                                <rect key="frame" x="67" y="388" width="280" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="281" id="5KH-Xx-dM8"/>
-                                    <constraint firstAttribute="height" constant="129" id="D6V-cn-2hn"/>
+                                    <constraint firstAttribute="width" constant="280" id="5KH-Xx-dM8"/>
+                                    <constraint firstAttribute="height" constant="130" id="D6V-cn-2hn"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Xxe-FS-K8o" firstAttribute="top" secondItem="W6b-3r-9qs" secondAttribute="bottom" constant="32.5" id="0mk-ke-gLf"/>
-                            <constraint firstItem="Xxe-FS-K8o" firstAttribute="centerX" secondItem="W6b-3r-9qs" secondAttribute="centerX" id="4mU-jh-usk"/>
+                            <constraint firstItem="Xxe-FS-K8o" firstAttribute="top" secondItem="W6b-3r-9qs" secondAttribute="bottom" constant="31.5" id="0mk-ke-gLf"/>
                             <constraint firstItem="W6b-3r-9qs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="QY6-xY-ZDf"/>
                             <constraint firstItem="W6b-3r-9qs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Xzu-q6-xT9"/>
+                            <constraint firstItem="Xxe-FS-K8o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jRv-uF-FjM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
