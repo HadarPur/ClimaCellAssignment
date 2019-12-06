@@ -10,8 +10,8 @@ import Foundation
 
 class Weather {
     
-    func getWeater(area: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj>) -> ()) {
-        ClimaCellAPI().getDataFromClimaCellAPI(area: area, callback: callback)
+    func getWeather(area: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
+        ClimaCellAPI().getDataFromClimaCellAPI(area: area, callback: callback, callbackError: callbackError)
     }
     
 }

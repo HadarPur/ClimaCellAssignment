@@ -19,9 +19,10 @@ class CountriesData {
     }
     
     let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;area"
+    let localStorage = LocalStorage()
     var countriesDataArray = [CountriesObj]()
 
-    public func config(callback: @escaping () -> ()) {
+    public func config(callback: @escaping () -> (), callbackError: @escaping () -> ()) {
         if let url = URL(string: countriesURL) {
            URLSession.shared.dataTask(with: url) { data, response, error in
               if let data = data {
@@ -30,21 +31,28 @@ class CountriesData {
                     let repos = try decoder.decode([CountriesObj].self, from: data)
                     
                     self.countriesDataArray = repos
-                    
+//                    self.localStorage.saveCountries(countries: self.countriesDataArray)
+
                     callback()
                  } catch let error {
-                    print(error)
+                    print("config error: \(error)")
+                    callbackError()
                  }
                }
+              else {
+                print("config error: \(error!)")
+                callbackError()
+            }
            }.resume()
         }
     }
     
     public func getCountriesFromURL() -> [CountriesObj] {
+//        print(self.localStorage.getCountries())
         return countriesDataArray
     }
     
-    public func getCapitalMapLocation(capital:String, country:String, locationCallback: @escaping (CLLocation) -> ()) {
+    public func getCapitalMapLocation(capital:String, country:String, locationCallback: @escaping (CLLocation) -> (), callbackError: @escaping () -> ()) {
         
         let capitalLocation = "\(capital), \(country)"
         
@@ -52,6 +60,7 @@ class CountriesData {
         geoCoder.geocodeAddressString(capitalLocation) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location else {
                 print("couldn't find any location: \(String(describing: error))")
+                callbackError()
                 return
             }
 

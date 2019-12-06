@@ -20,11 +20,11 @@ public class Countries {
     }
 
     //read the data from the firebase
-    func readAllData(callback: @escaping () -> ()) {
-        CData.config(callback: callback)
+    func readAllData(callback: @escaping () -> (), callbackError: @escaping () -> ()) {
+        CData.config(callback: callback, callbackError: callbackError)
     }
     
-    func getLocationForSpecificCapital(capitalObj: CountriesData.CountriesObj, callback: @escaping (CLLocation) -> ()) {
-        CData.getCapitalMapLocation(capital: capitalObj.capital!, country: capitalObj.name!, locationCallback: callback)
+    func getLocationForSpecificCapital(capitalObj: CountriesData.CountriesObj, callback: @escaping (CLLocation) -> (), callbackError: @escaping () -> ()) {
+        CData.getCapitalMapLocation(capital: capitalObj.capital!, country: capitalObj.name!, locationCallback: callback, callbackError: callbackError)
     }
 }

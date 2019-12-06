@@ -18,7 +18,6 @@ class WeatherViewController: UIViewController {
     let weather = Weather()
     let caountries = Countries()
     let flags = Flags()
-    let utils = FuncUtils()
     
     var chosenRecord: CountriesData.CountriesObj?
     var weather5NextDays = [ClimaCellAPI.ClimaCellObj]()
@@ -27,33 +26,51 @@ class WeatherViewController: UIViewController {
     var capital: String?
     var country: String?
     var flag: String?
+    var isInCelsius = true
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         weatherTableView.delegate = self
         weatherTableView.dataSource = self
         
-        utils.showAlertActivityIndicator(viewController: self, msg: "Loading...")
         setupTitle()
         getWeather()
+        
+        let logoutBarButtonItem = UIBarButtonItem(title: "Change", style: .done, target: self, action: #selector(ChangeTempUnits))
+        self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
     }
 
+    @objc func ChangeTempUnits(){
+        if isInCelsius {
+            isInCelsius = false
+        } else {
+           isInCelsius = true
+        }
+        self.weatherTableView.reloadData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         setupPinOnTheMap()
     }
     
     func getWeather() {
-        weather.getWeater(area: chosenRecord!) { (array) in
-            self.weather5NextDays = Array(array.prefix(5))
-            print("Temp: \(self.weather5NextDays[0])")
+        print("Start reading weather.")
+        weather.getWeather(area: chosenRecord!, callback: { (weatherArray) in
+            print("Done reading weather.")
+
+            self.weather5NextDays = Array(weatherArray.prefix(5))
 
             DispatchQueue.main.async {
                 self.weatherTableView.reloadData()
-                self.utils.hideAlertActivityIndicator(viewController: self)
             }
-        }
+        }, callbackError: {
+            print("Done reading weather.")
+
+            DispatchQueue.main.async {
+                FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to read the weather, please try later.", cancelButtonTitle: "Ok")
+            }
+        })
     }
     
     func setupTitle() {
@@ -67,21 +84,30 @@ class WeatherViewController: UIViewController {
     }
     
     func setupPinOnTheMap() {
-        caountries.getLocationForSpecificCapital(capitalObj: chosenRecord!) { (location) in
-            // 2
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            self.mapView.setRegion(region, animated: true)
-                
-            //3
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location.coordinate
-            annotation.title = self.capital!
-            annotation.subtitle = "\(self.country!) \(self.flag!)"
-            
-            self.mapView.addAnnotation(annotation)
+        print("Start set pin on the map.")
+        caountries.getLocationForSpecificCapital(capitalObj: chosenRecord!, callback: { (location) in
+            print("Done set pin on the map")
 
-        }
+              let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+              let region = MKCoordinateRegion(center: location.coordinate, span: span)
+              self.mapView.setRegion(region, animated: true)
+                  
+              let annotation = MKPointAnnotation()
+              annotation.coordinate = location.coordinate
+              annotation.title = self.capital!
+              annotation.subtitle = "\(self.country!) \(self.flag!)"
+              
+              self.mapView.addAnnotation(annotation)
+        }, callbackError: {
+            DispatchQueue.main.async {
+                FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to read the weather, please try later.", cancelButtonTitle: "Ok")
+            }
+        })
+    }
+    
+    func temperatureInFahrenheit(temperature: Double) -> Double {
+          let fahrenheit = (temperature * 9.0) / 5.0 + 32.0
+          return fahrenheit
     }
 }
 
@@ -94,15 +120,24 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as! WeatherCell
         let obj = weather5NextDays[indexPath.row]
         
-        
         let date = obj.observation_time.value!
-        let minTemp = obj.temp[0].min!.value!
-        let maxTemp = obj.temp[1].max!.value!
-        let unit = obj.temp[0].min!.units!
         let precipitationValue = obj.precipitation[0].max.value!
         let precipitationUnit = obj.precipitation[0].max.units!
 
-        let text = "Date: \(date)\nMin Temp: \(minTemp) \(unit)\nMax Temp: \(maxTemp) \(unit)\nPrecipitation: \(precipitationValue) \(precipitationUnit)"
+        var minTemp: Double?
+        var maxTemp: Double?
+        var unit: String?
+        
+        if (isInCelsius) {
+            minTemp = obj.temp[0].min!.value!
+            maxTemp = obj.temp[1].max!.value!
+            unit = obj.temp[0].min!.units!
+        } else {
+            minTemp = temperatureInFahrenheit(temperature: obj.temp[0].min!.value!)
+            maxTemp = temperatureInFahrenheit(temperature: obj.temp[1].max!.value!)
+            unit = "F"
+        }
+        let text = "Date: \(date)\nMin Temp: \(minTemp!) \(unit!)\nMax Temp: \(maxTemp!) \(unit!)\nPrecipitation: \(precipitationValue) \(precipitationUnit)"
         cell.textLabel?.text = text
 
         return cell

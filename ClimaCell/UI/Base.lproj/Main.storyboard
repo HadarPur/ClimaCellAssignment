@@ -109,7 +109,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aKi-oq-HkA"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ymO-qe-DGf"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="capitalsTableView" destination="HTi-IN-zMb" id="NhX-Tf-y7r"/>

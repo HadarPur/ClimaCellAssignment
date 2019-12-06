@@ -46,11 +46,10 @@ class ClimaCellAPI {
     
     let climaCellUrl = "https://api.climacell.co/v3/weather/forecast/daily"
     var apiKey: String?
-     
-    func getDataFromClimaCellAPI(area: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj>) -> ()) {
+    
+    func getDataFromClimaCellAPI(area: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         self.getClimaCellKeys { (apiKey) in
-            CountriesData().getCapitalMapLocation(capital: area.capital, country: area.name) { (location) in
-                                
+            CountriesData().getCapitalMapLocation(capital: area.capital, country: area.name, locationCallback: { (location) in
                 let lat = location.coordinate.latitude
                 let lon = location.coordinate.longitude
                 let areaCode = area.area!
@@ -59,12 +58,14 @@ class ClimaCellAPI {
                 let fields = "temp,precipitation"
                 
                 let objURL = "\(basicURL)?location_id=\(areaCode)&lat=\(lat)&lon=\(lon)&start_time=\(startTime)&unit_system=si&fields=\(fields)"
-                self.getSession(url: objURL, apiKey: apiKey, callback: callback)
-            }
+                self.getSession(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
+            }, callbackError: {
+                callbackError()
+            })
         }
     }
     
-    private func getSession(url: String, apiKey: String, callback: @escaping (Array<ClimaCellObj>) -> ()) {
+    private func getSession(url: String, apiKey: String, callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         // create the request
         guard let SNUrl = URL(string: url) else { return }
         
@@ -72,17 +73,24 @@ class ClimaCellAPI {
         request.httpMethod = "GET"
         request.setValue("\(apiKey)", forHTTPHeaderField: "apikey")
         request.setValue("application/JSON", forHTTPHeaderField: "Content-Type")
-
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else {
+                return
+            }
+            
+            if ((error) != nil) {
+                callbackError()
+            }
             do {
                 let decoder = JSONDecoder()
                 let decodeResult = try decoder.decode([ClimaCellObj].self, from: data)
-
+                
                 print(decodeResult)
                 callback(decodeResult)
             } catch let err {
                 print("getSession Err: ", err)
+                callbackError()
             }
         }.resume()
     }
