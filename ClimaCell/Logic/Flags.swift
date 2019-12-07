@@ -9,12 +9,12 @@
 import Foundation
 
 class Flags {
-     public func flagForCountry(country:String) -> String {
+     public func flagForCountry(country: String) -> String {
          let base : UInt32 = 127397
-         var s = ""
-         for v in country.unicodeScalars {
-             s.unicodeScalars.append(UnicodeScalar(base + v.value)!)
+         var flagString = ""
+         for value in country.unicodeScalars {
+             flagString.unicodeScalars.append(UnicodeScalar(base + value.value)!)
          }
-         return String(s)
+         return String(flagString)
      }
 }

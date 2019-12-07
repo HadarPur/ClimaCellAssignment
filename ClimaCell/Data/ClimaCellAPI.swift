@@ -61,55 +61,24 @@ class ClimaCellAPI {
     private let climaCellUrl6Hours = "https://api.climacell.co/v3/weather/nowcast"
     
     private var apiKey: String?
-    private var climaCellDataArray = [[ClimaCellObj]]()
+    private var climaCellDataArray = [[Double]:[ClimaCellObj]]()
+    
+    init() {
+        self.getClimaCellKeys { (apiKey) in
+            self.apiKey = apiKey
+        }
+    }
     
     func getDataFromClimaCellDailyAPI(capitalObj: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
-        self.getClimaCellKeys { (apiKey) in
-            if !capitalObj.latlng.isEmpty {
-                self.getDataDailyAPI(apiKey: apiKey, capitalObj: capitalObj, callback: callback, callbackError: callbackError)
-            } else {
-                CountriesData().getCapitalMapLocation(capital: capitalObj.capital, country: capitalObj.name, locationCallback: { (location) in
-                    
-                    let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
-                    
-                    let newRecord = CountriesData.CountriesObj(name: capitalObj.name, alpha2Code: capitalObj.alpha2Code, capital: capitalObj.capital, latlng: latlng)
-                    
-                    self.getDataDailyAPI(apiKey: apiKey, capitalObj: newRecord, callback: callback, callbackError: callbackError)
-                    
-                }, callbackError: {
-                    callbackError()
-                })
-            }
-        }
+        self.getDataDailyAPI(apiKey: apiKey!, capitalObj: capitalObj, callback: callback, callbackError: callbackError)
     }
     
     func getDataFromClimaCellAPI6Hours(capitalObj: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
-        self.getClimaCellKeys { (apiKey) in
-            if !capitalObj.latlng.isEmpty {
-                self.getData6HoursAPI(apiKey: apiKey, capitalObj: capitalObj, callback: callback, callbackError: callbackError)
-            } else {
-                CountriesData().getCapitalMapLocation(capital: capitalObj.capital, country: capitalObj.name, locationCallback: { (location) in
-                    
-                    let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
-                    
-                    let newRecord = CountriesData.CountriesObj(name: capitalObj.name, alpha2Code: capitalObj.alpha2Code, capital: capitalObj.capital, latlng: latlng)
-                    
-                    self.getData6HoursAPI(apiKey: apiKey, capitalObj: newRecord, callback: callback, callbackError: callbackError)
-                    
-                }, callbackError: {
-                    callbackError()
-                })
-            }
-        }
+        self.getData6HoursAPI(apiKey: apiKey!, capitalObj: capitalObj, callback: callback, callbackError: callbackError)
     }
     
     func getClimaCellDailyDataWheather(capitalObj: CountriesData.CountriesObj) ->  [ClimaCellObj] {
-        var searchCapital = [ClimaCellObj]()
-        for item in climaCellDataArray {
-            searchCapital = item.filter({$0.lat == capitalObj.latlng[0] && $0.lon == capitalObj.latlng[1]})
-            break
-        }
-        return searchCapital
+        return climaCellDataArray[capitalObj.latlng] ?? []
     }
     
     private func getDataDailyAPI(apiKey: String, capitalObj: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
@@ -120,7 +89,7 @@ class ClimaCellAPI {
         let fields = "temp,precipitation"
         
         let objURL = "\(basicURL)?lat=\(lat)&lon=\(lon)&start_time=\(startTime)&unit_system=si&fields=\(fields)"
-        self.getDailySession(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
+        self.getDailySession(url: objURL, latLng: capitalObj.latlng, apiKey: apiKey, callback: callback, callbackError: callbackError)
     }
     
     private func getData6HoursAPI(apiKey: String, capitalObj: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
@@ -135,7 +104,7 @@ class ClimaCellAPI {
         self.getSessionFor6Hours(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
     }
     
-    private func getDailySession(url: String, apiKey: String, callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
+    private func getDailySession(url: String, latLng: [Double], apiKey: String, callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         // create the request
         guard let SNUrl = URL(string: url) else { return }
         
@@ -145,9 +114,7 @@ class ClimaCellAPI {
         request.setValue("application/JSON", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                return
-            }
+            guard let data = data else { return }
             
             if ((error) != nil) {
                 callbackError()
@@ -157,7 +124,7 @@ class ClimaCellAPI {
                 let decodeResult = try decoder.decode([ClimaCellObj].self, from: data)
                 let fiveDaysArray = Array(decodeResult.prefix(5))
                 
-                self.climaCellDataArray.append(fiveDaysArray)
+                self.climaCellDataArray[latLng] = fiveDaysArray
                 callback(fiveDaysArray)
             } catch let err {
                 print("getSession Err: ", err)
