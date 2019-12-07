@@ -16,10 +16,9 @@ class CountriesData {
         let alpha2Code: String!
         let capital: String!
         var latlng: [Double]!
-        let area: Float!
     }
     
-    let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;area;latlng"
+    let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;latlng"
     var countriesDataArray = [CountriesObj]()
 
     public func config(callback: @escaping () -> (), callbackError: @escaping () -> ()) {

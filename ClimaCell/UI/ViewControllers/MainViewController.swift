@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.title = "ClimaCell"
         
+        setupMap()
         self.hideKeyboardWhenTappedAround()
         setupBarButtons()
     }
@@ -55,14 +56,18 @@ class MainViewController: UIViewController {
     @objc func ChangeTableToMap(){
         if isMapExist {
             isMapExist = false
-            mapView.removeFromSuperview()
+            DispatchQueue.main.async {
+                self.mapView.removeFromSuperview()
+            }
         } else {
-            showMap()
+            DispatchQueue.main.async {
+                self.view.addSubview(self.mapView)
+            }
             isMapExist = true
         }
     }
     
-    func showMap() {
+    func setupMap() {
         
         let leftMargin:CGFloat = 0
         let topMargin:CGFloat = 0
@@ -78,7 +83,6 @@ class MainViewController: UIViewController {
         // Or, if needed, we can position map in the center of the view
         mapView.center = view.center
         
-        view.addSubview(mapView)
         setupPinOnTheMap()
     }
     
@@ -94,7 +98,7 @@ class MainViewController: UIViewController {
 
                     let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
                     
-                    let newRecord = CountriesData.CountriesObj(name: chosenRecord.name, alpha2Code: chosenRecord.alpha2Code, capital: chosenRecord.capital, latlng: latlng,area: chosenRecord.area)
+                    let newRecord = CountriesData.CountriesObj(name: chosenRecord.name, alpha2Code: chosenRecord.alpha2Code, capital: chosenRecord.capital, latlng: latlng)
                     
                     Map().setupPin(record: newRecord, map: self.mapView)
                     
@@ -170,18 +174,6 @@ extension MainViewController: UISearchBarDelegate {
 
 // Map view delegate
 extension MainViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let coordinate = CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)
-        var span = mapView.region.span
-        if span.latitudeDelta < 150{ // MIN LEVEL
-            span = MKCoordinateSpan(latitudeDelta: 150, longitudeDelta: 150)
-        } else if span.latitudeDelta > 151 { // MAX LEVEL
-            span = MKCoordinateSpan(latitudeDelta: 151, longitudeDelta: 151)
-        }
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated:true)
-    }
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let pinTitle = "\(String(((view.annotation?.title)!)!))"
         let capitalsArray = mCountries.getCountries()

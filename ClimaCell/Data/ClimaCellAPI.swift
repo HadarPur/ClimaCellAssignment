@@ -71,7 +71,7 @@ class ClimaCellAPI {
                     
                     let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
                     
-                    let newRecord = CountriesData.CountriesObj(name: area.name, alpha2Code: area.alpha2Code, capital: area.capital, latlng: latlng,area: area.area)
+                    let newRecord = CountriesData.CountriesObj(name: area.name, alpha2Code: area.alpha2Code, capital: area.capital, latlng: latlng)
                     
                     self.getDataAPI(apiKey: apiKey, area: newRecord, callback: callback, callbackError: callbackError)
                     
@@ -91,7 +91,7 @@ class ClimaCellAPI {
                     
                     let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
                     
-                    let newRecord = CountriesData.CountriesObj(name: area.name, alpha2Code: area.alpha2Code, capital: area.capital, latlng: latlng,area: area.area)
+                    let newRecord = CountriesData.CountriesObj(name: area.name, alpha2Code: area.alpha2Code, capital: area.capital, latlng: latlng)
                     
                     self.getData6HoursAPI(apiKey: apiKey, area: newRecord, callback: callback, callbackError: callbackError)
                     

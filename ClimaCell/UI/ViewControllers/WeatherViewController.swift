@@ -201,7 +201,7 @@ class WeatherViewController: UIViewController {
 
                 let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
                 
-                let newRecord = CountriesData.CountriesObj(name: self.chosenRecord!.name, alpha2Code: self.chosenRecord!.alpha2Code, capital: self.chosenRecord!.capital, latlng: latlng,area: self.chosenRecord!.area)
+                let newRecord = CountriesData.CountriesObj(name: self.chosenRecord!.name, alpha2Code: self.chosenRecord!.alpha2Code, capital: self.chosenRecord!.capital, latlng: latlng)
                 
                 Map().setupPin(record: newRecord, map: self.mapView)
 
