@@ -8,7 +8,7 @@
 
 import UIKit
 
-// The first VC that loadinf the all capital data with singleton
+// The first VC that loading the all capital data with singleton
 class LoadingViewController: UIViewController {
 
     let mCountries = Countries.shared
@@ -33,13 +33,10 @@ class LoadingViewController: UIViewController {
     }
     
     func moveToMainVC() {
-        let deadlineTime = DispatchTime.now() + .seconds(1)
+        let deadlineTime = DispatchTime.now() + .seconds(2)
 
-        DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-            
-            self.navigationController?.pushViewController(mainVC, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: { [ weak self] in
+            self?.dismiss(animated: false, completion: nil)
         })
     }
 }

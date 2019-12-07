@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gc9-PX-FYJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lh3-Yz-RAs">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Xxe-FS-K8o" firstAttribute="top" secondItem="W6b-3r-9qs" secondAttribute="bottom" constant="31.5" id="0mk-ke-gLf"/>
                             <constraint firstItem="W6b-3r-9qs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="QY6-xY-ZDf"/>
@@ -96,7 +96,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HTi-IN-zMb" firstAttribute="bottom" secondItem="aKi-oq-HkA" secondAttribute="bottom" constant="34" id="1uH-hB-RV4"/>
                             <constraint firstItem="HTi-IN-zMb" firstAttribute="width" secondItem="YMa-1Z-ZHN" secondAttribute="width" multiplier="1.02657" id="6mI-M7-yQ6"/>
@@ -109,6 +109,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aKi-oq-HkA"/>
                     </view>
+                    <navigationItem key="navigationItem" id="9R3-2a-a9o"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="capitalsTableView" destination="HTi-IN-zMb" id="NhX-Tf-y7r"/>
@@ -117,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHb-6F-Z1b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1960.8695652173915" y="112.5"/>
+            <point key="canvasLocation" x="2871.0144927536235" y="112.5"/>
         </scene>
         <!--Weather View Controller-->
         <scene sceneID="Fok-T0-q5N">
@@ -165,7 +166,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ako-z3-oN6" firstAttribute="width" secondItem="kAB-TO-ndV" secondAttribute="width" id="0IY-SL-tZ9"/>
                             <constraint firstItem="REe-00-al5" firstAttribute="centerX" secondItem="Bto-Zu-j8L" secondAttribute="centerX" id="3wV-NT-ZL1"/>
@@ -197,25 +198,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K99-Mu-rXM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2830.434782608696" y="103.79464285714285"/>
+            <point key="canvasLocation" x="3740.579710144928" y="103.79464285714285"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="fp6-27-Dhk">
+        <scene sceneID="QQu-0D-uet">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gc9-PX-FYJ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lh3-Yz-RAs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8a9-68-Udq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QnI-27-exG">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="sIa-DP-vEF"/>
+                        <segue destination="BkH-6x-Ohu" kind="relationship" relationship="rootViewController" id="fXq-Fz-xOj"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mcy-TB-wr1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kFx-bJ-wva" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
+            <point key="canvasLocation" x="1960.8695652173915" y="112.5"/>
         </scene>
     </scenes>
     <resources>

@@ -12,12 +12,18 @@ import MapKit
 
 class Map {
     func setupPin(record: CountriesData.CountriesObj, map: MKMapView) {
+        map.setupPin(record: record)
+    }
+}
+
+extension MKMapView {
+    func setupPin(record: CountriesData.CountriesObj) {
         let coords: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: record.latlng[0], longitude: record.latlng[1])
 
         let span = MKCoordinateSpan(latitudeDelta: 150, longitudeDelta: 150)
         let region = MKCoordinateRegion(center: coords, span: span)
 
-        map.setRegion(region, animated: true)
+        setRegion(region, animated: true)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = coords
@@ -25,6 +31,6 @@ class Map {
         annotation.subtitle = record.capital!
         annotation.title = "\(record.name!)"
         
-        map.addAnnotation(annotation)
+        addAnnotation(annotation)
     }
 }

@@ -16,36 +16,45 @@ class MainViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     let mCountries = Countries.shared
-    var searchCapital = [CountriesData.CountriesObj]()
+    var searchResults = [CountriesData.CountriesObj]()
     let flags = Flags()
-
+    
     var searching = false
-    let mapView = MKMapView()
+    lazy var mapView = MKMapView()
     var isMapExist = false
-
+    var isDoneLoading = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        popupViewControllerFromStack()
-       
         capitalsTableView.delegate=self
         capitalsTableView.dataSource=self
         searchBar.delegate = self
         mapView.delegate = self
         
+        capitalsTableView.keyboardDismissMode = .interactive
+        
         self.navigationController?.isNavigationBarHidden = false
         self.title = "ClimaCell"
         
-        setupMap()
         self.hideKeyboardWhenTappedAround()
         setupBarButtons()
+
+
+        let vc = LoadingViewController.instantiate()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: false, completion: nil)
+        
     }
     
-    func popupViewControllerFromStack() {
-        var navigationArray = self.navigationController?.viewControllers //To get all UIViewController stack as Array
-        navigationArray!.remove(at: (navigationArray?.count)! - 2) // To remove previous UIViewController
-        self.navigationController?.viewControllers = navigationArray!
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !isDoneLoading {
+            setupMap()
+            isDoneLoading = true
+        }
+        capitalsTableView.reloadData()
     }
     
     func setupBarButtons() {
@@ -88,14 +97,14 @@ class MainViewController: UIViewController {
     
     func setupPinOnTheMap() {
         for chosenRecord in mCountries.getCountries() {
-                        
+            
             if !chosenRecord.latlng.isEmpty {
                 Map().setupPin(record: chosenRecord, map: self.mapView)
             }
             else {
                 mCountries.getLocationForSpecificCapital(capitalObj: chosenRecord, callback: { (location) in
                     print("Done set pin on the map")
-
+                    
                     let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
                     
                     let newRecord = CountriesData.CountriesObj(name: chosenRecord.name, alpha2Code: chosenRecord.alpha2Code, capital: chosenRecord.capital, latlng: latlng)
@@ -113,16 +122,16 @@ class MainViewController: UIViewController {
     
     func moveToWeatherVC(chosenRecord: CountriesData.CountriesObj){
         print("chosenCapital: \(chosenRecord)")
-
+        
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let weatherViewController = storyBoard.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController
-
+        
         guard weatherViewController != nil else {
             return
         }
-
+        
         weatherViewController?.chosenRecord = chosenRecord
-
+        
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(weatherViewController!, animated: true)
         }
@@ -131,13 +140,13 @@ class MainViewController: UIViewController {
     func setLocation(chosenRecord: CountriesData.CountriesObj) {
         mCountries.getLocationForSpecificCapital(capitalObj: chosenRecord, callback: { (location) in
             print("Done set pin on the map")
-
+            
             let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
             
             let newRecord = CountriesData.CountriesObj(name: chosenRecord.name, alpha2Code: chosenRecord.alpha2Code, capital: chosenRecord.capital, latlng: latlng)
             
             self.moveToWeatherVC(chosenRecord: newRecord)
-
+            
         }, callbackError: {
             DispatchQueue.main.async {
                 FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to set pin on the map for \(chosenRecord.name!), please try later.", cancelButtonTitle: "Ok")
@@ -150,7 +159,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searching { return searchCapital.count }
+        if searching { return searchResults.count }
         return mCountries.getCountries().count
     }
     
@@ -163,7 +172,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         var flag: String?
         
         if searching == true {
-            record = searchCapital[indexPath.row]
+            record = searchResults[indexPath.row]
         } else {
             record = mCountries.getCountries()[indexPath.row]
         }
@@ -193,7 +202,11 @@ extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let capitalsArray = mCountries.getCountries()
         
-        searchCapital = capitalsArray.filter({$0.capital.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        searchResults = capitalsArray.filter({
+            let phrase = searchText.lowercased()
+            return $0.capital.lowercased().contains(phrase) || $0.name.lowercased().contains(phrase) || $0.alpha2Code.lowercased().contains(phrase)
+        })
+        
         searching = true
         capitalsTableView.reloadData()
     }
