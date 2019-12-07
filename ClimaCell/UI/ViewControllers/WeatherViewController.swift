@@ -18,7 +18,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var graphView: ScrollableGraphView!
     
-    let weather = Weather()
+    let mCountriesWeather = Weather.shared
+
     let caountries = Countries()
     let flags = Flags()
     var fireworksView: FireworksView?
@@ -61,7 +62,6 @@ class WeatherViewController: UIViewController {
     }
     
     func setupWeatherAnim() {
-        // 1. create a FireworksView
         fireworksView = FireworksView(frame: view.frame)
     }
     
@@ -72,13 +72,17 @@ class WeatherViewController: UIViewController {
     
     @objc func ChangeTempUnits(){
         if isInCelsius {
+            setupGraph(tempArray: self.tempAtrrayF)
             isInCelsius = false
         } else {
+            setupGraph(tempArray: self.tempAtrrayC)
             isInCelsius = true
         }
-        setupGraph(tempArray: tempAtrrayF)
-        self.weatherTableView.reloadData()
-        self.graphView.reload()
+        
+        DispatchQueue.main.async {
+            self.weatherTableView.reloadData()
+            self.graphView.reload()
+        }
     }
     
     func setupArrays() {
@@ -92,7 +96,6 @@ class WeatherViewController: UIViewController {
     }
     
     func setupGraph(tempArray: [Double]) {
-        
         // Setup the line plot.
         let linePlot = LinePlot(identifier: "darkLine")
         
@@ -147,23 +150,21 @@ class WeatherViewController: UIViewController {
     
     func getWeather() {
         print("Start reading weather.")
-        weather.getWeather(area: chosenRecord!, callback: { (weatherArray) in
-            print("Done reading weather.")
-            
-            self.weather5NextDays = Array(weatherArray.prefix(5))
+    
+        let dailyObj = mCountriesWeather.getCapitalDailyWeather(capitalObj: chosenRecord!)
+        if !dailyObj.isEmpty {
+            print("Reading local.")
+            self.weather5NextDays = Array(dailyObj.prefix(5))
             
             DispatchQueue.main.async {
                 self.weatherTableView.reloadData()
             }
-        }, callbackError: {
-            print("Done reading weather with error.")
-            
-            DispatchQueue.main.async {
-                FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to read the weather, please try later.", cancelButtonTitle: "Ok")
-            }
-        })
+        } else {
+            print("Reading from endpoind.")
+            readDailyData()
+        }
         
-        weather.getWeatherFor6Hours(area: chosenRecord!, callback: { (weatherArray) in
+        mCountriesWeather.getWeatherFor6Hours(capitalObj: chosenRecord!, callback: { (weatherArray) in
             print("Done reading weather 6 hours.")
             self.weather6NextHours = weatherArray
             self.numberOfItems = self.weather6NextHours.count
@@ -174,6 +175,24 @@ class WeatherViewController: UIViewController {
             
         }, callbackError: {
             print("Done reading weather 6 hours with error.")
+            
+            DispatchQueue.main.async {
+                FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to read the weather, please try later.", cancelButtonTitle: "Ok")
+            }
+        })
+    }
+    
+    func readDailyData() {
+        mCountriesWeather.getWeather(capitalObj: chosenRecord!, callback: { (weatherArray) in
+            print("Done reading weather.")
+            
+            self.weather5NextDays = Array(weatherArray.prefix(5))
+            
+            DispatchQueue.main.async {
+                self.weatherTableView.reloadData()
+            }
+        }, callbackError: {
+            print("Done reading weather with error.")
             
             DispatchQueue.main.async {
                 FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to read the weather, please try later.", cancelButtonTitle: "Ok")
@@ -228,7 +247,6 @@ class WeatherViewController: UIViewController {
                     randomNumber *= 3
                 }
             }
-            
             data.append(randomNumber)
         }
         return data

@@ -18,8 +18,8 @@ class CountriesData {
         var latlng: [Double]!
     }
     
-    let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;latlng"
-    var countriesDataArray = [CountriesObj]()
+    private let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;latlng"
+    private var countriesDataArray = [CountriesObj]()
 
     public func config(callback: @escaping () -> (), callbackError: @escaping () -> ()) {
         if let url = URL(string: countriesURL) {

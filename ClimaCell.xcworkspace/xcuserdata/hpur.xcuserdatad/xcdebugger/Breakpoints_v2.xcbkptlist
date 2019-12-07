@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "getDataFromClimaCellAPI6Hours(area:callback:callbackError:)"
+            landmarkName = "getDataFromClimaCellAPI6Hours(capitalObj:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
             endingLineNumber = "104"
-            landmarkName = "ClimaCellAPI"
-            landmarkType = "3">
+            landmarkName = "getDataFromClimaCellAPI6Hours(capitalObj:callback:callbackError:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,9 +46,9 @@
             filePath = "ClimaCell/Data/ClimaCellAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "getDataAPI(apiKey:area:callback:callbackError:)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "getClimaCellDailyDataWheather(capitalObj:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,24 +64,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "getDataAPI(apiKey:area:callback:callbackError:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5700E51F-A7F2-4E39-951A-7077457E1B8D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClimaCell/Data/ClimaCellAPI.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "getDataAPI(apiKey:area:callback:callbackError:)"
-            landmarkType = "7">
+            landmarkName = "ClimaCellAPI"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

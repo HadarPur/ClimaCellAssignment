@@ -13,7 +13,7 @@ import CoreLocation
 public class Countries {
     
     static let shared = Countries()
-    let CData = CountriesData()
+    private let CData = CountriesData()
     
     func getCountries() -> [CountriesData.CountriesObj] {
         return CData.getCountriesFromURL()

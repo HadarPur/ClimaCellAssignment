@@ -10,11 +10,18 @@ import Foundation
 
 class Weather {
     
-    func getWeather(area: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
-        ClimaCellAPI().getDataFromClimaCellAPI(area: area, callback: callback, callbackError: callbackError)
+    static let shared = Weather()
+    private let ClimaCellData = ClimaCellAPI()
+    
+    func getWeather(capitalObj: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
+        ClimaCellData.getDataFromClimaCellDailyAPI(capitalObj: capitalObj, callback: callback, callbackError: callbackError)
     }
     
-    func getWeatherFor6Hours(area: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
-        ClimaCellAPI().getDataFromClimaCellAPI6Hours(area: area, callback: callback, callbackError: callbackError)
+    func getWeatherFor6Hours(capitalObj: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
+        ClimaCellData.getDataFromClimaCellAPI6Hours(capitalObj: capitalObj, callback: callback, callbackError: callbackError)
+    }
+    
+    func getCapitalDailyWeather(capitalObj: CountriesData.CountriesObj) -> [ClimaCellAPI.ClimaCellObj] {
+        return ClimaCellData.getClimaCellDailyDataWheather(capitalObj: capitalObj)
     }
 }
