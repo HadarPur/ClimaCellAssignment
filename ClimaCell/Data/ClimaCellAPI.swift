@@ -62,7 +62,7 @@ class ClimaCellAPI {
     
     private var apiKey: String?
     private var climaCellDataArray = [[ClimaCellObj]]()
-
+    
     func getDataFromClimaCellDailyAPI(capitalObj: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         self.getClimaCellKeys { (apiKey) in
             if !capitalObj.latlng.isEmpty {
@@ -120,7 +120,7 @@ class ClimaCellAPI {
         let fields = "temp,precipitation"
         
         let objURL = "\(basicURL)?lat=\(lat)&lon=\(lon)&start_time=\(startTime)&unit_system=si&fields=\(fields)"
-        self.getSession(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
+        self.getDailySession(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
     }
     
     private func getData6HoursAPI(apiKey: String, capitalObj: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
@@ -135,7 +135,7 @@ class ClimaCellAPI {
         self.getSessionFor6Hours(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
     }
     
-    private func getSession(url: String, apiKey: String, callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
+    private func getDailySession(url: String, apiKey: String, callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         // create the request
         guard let SNUrl = URL(string: url) else { return }
         
@@ -155,9 +155,10 @@ class ClimaCellAPI {
             do {
                 let decoder = JSONDecoder()
                 let decodeResult = try decoder.decode([ClimaCellObj].self, from: data)
+                let fiveDaysArray = Array(decodeResult.prefix(5))
                 
-                self.climaCellDataArray.append(decodeResult)
-                callback(decodeResult)
+                self.climaCellDataArray.append(fiveDaysArray)
+                callback(fiveDaysArray)
             } catch let err {
                 print("getSession Err: ", err)
                 callbackError()

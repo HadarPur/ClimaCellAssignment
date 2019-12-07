@@ -12,6 +12,7 @@ class Weather {
     
     static let shared = Weather()
     private let ClimaCellData = ClimaCellAPI()
+    private var startTime = TimeInterval()
     
     func getWeather(capitalObj: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         ClimaCellData.getDataFromClimaCellDailyAPI(capitalObj: capitalObj, callback: callback, callbackError: callbackError)

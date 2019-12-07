@@ -154,7 +154,7 @@ class WeatherViewController: UIViewController {
         let dailyObj = mCountriesWeather.getCapitalDailyWeather(capitalObj: chosenRecord!)
         if !dailyObj.isEmpty {
             print("Reading local.")
-            self.weather5NextDays = Array(dailyObj.prefix(5))
+            self.weather5NextDays = dailyObj
             
             DispatchQueue.main.async {
                 self.weatherTableView.reloadData()
@@ -186,7 +186,7 @@ class WeatherViewController: UIViewController {
         mCountriesWeather.getWeather(capitalObj: chosenRecord!, callback: { (weatherArray) in
             print("Done reading weather.")
             
-            self.weather5NextDays = Array(weatherArray.prefix(5))
+            self.weather5NextDays = weatherArray
             
             DispatchQueue.main.async {
                 self.weatherTableView.reloadData()

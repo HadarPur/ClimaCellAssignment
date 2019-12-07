@@ -110,6 +110,40 @@ class MainViewController: UIViewController {
             }            
         }
     }
+    
+    func moveToWeatherVC(chosenRecord: CountriesData.CountriesObj){
+        print("chosenCapital: \(chosenRecord)")
+
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let weatherViewController = storyBoard.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController
+
+        guard weatherViewController != nil else {
+            return
+        }
+
+        weatherViewController?.chosenRecord = chosenRecord
+
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(weatherViewController!, animated: true)
+        }
+    }
+    
+    func setLocation(chosenRecord: CountriesData.CountriesObj) {
+        mCountries.getLocationForSpecificCapital(capitalObj: chosenRecord, callback: { (location) in
+            print("Done set pin on the map")
+
+            let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
+            
+            let newRecord = CountriesData.CountriesObj(name: chosenRecord.name, alpha2Code: chosenRecord.alpha2Code, capital: chosenRecord.capital, latlng: latlng)
+            
+            self.moveToWeatherVC(chosenRecord: newRecord)
+
+        }, callbackError: {
+            DispatchQueue.main.async {
+                FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to set pin on the map for \(chosenRecord.name!), please try later.", cancelButtonTitle: "Ok")
+            }
+        })
+    }
 }
 
 // Table view delegates
@@ -146,17 +180,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let chosenRecord = mCountries.getCountries()[indexPath.row]
         
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let weatherViewController = storyBoard.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController
-        
-        guard weatherViewController != nil else {
-            return
-        }
-        
-        weatherViewController?.chosenRecord = chosenRecord
-        
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(weatherViewController!, animated: true)
+        if !chosenRecord.latlng.isEmpty {
+            moveToWeatherVC(chosenRecord: chosenRecord)
+        } else {
+            setLocation(chosenRecord: chosenRecord)
         }
     }
 }
@@ -178,24 +205,12 @@ extension MainViewController: MKMapViewDelegate {
         let pinTitle = "\(String(((view.annotation?.title)!)!))"
         let capitalsArray = mCountries.getCountries()
         
+        let chosenRecord = capitalsArray.filter({$0.name.lowercased().prefix(pinTitle.count) == pinTitle.lowercased()})
         
-        let chosenCapital = capitalsArray.filter({$0.name.lowercased().prefix(pinTitle.count) == pinTitle.lowercased()})
-        
-        print("chosenCapital: \(chosenCapital)")
-
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let weatherViewController = storyBoard.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController
-
-        guard weatherViewController != nil else {
-            return
+        if !chosenRecord[0].latlng.isEmpty {
+            moveToWeatherVC(chosenRecord: chosenRecord[0])
+        } else {
+            setLocation(chosenRecord: chosenRecord[0])
         }
-
-        weatherViewController?.chosenRecord = chosenCapital[0]
-
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(weatherViewController!, animated: true)
-        }
-        
     }
-    
 }
