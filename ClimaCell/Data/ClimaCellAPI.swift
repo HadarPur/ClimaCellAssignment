@@ -164,13 +164,9 @@ class ClimaCellAPI {
         request.setValue("application/JSON", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                return
-            }
+            guard let data = data else { return }
+            if ((error) != nil) { callbackError()}
             
-            if ((error) != nil) {
-                callbackError()
-            }
             do {
                 let decoder = JSONDecoder()
                 let decodeResult = try decoder.decode([ClimaCellObj6Hours].self, from: data)

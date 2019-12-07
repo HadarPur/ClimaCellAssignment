@@ -20,7 +20,6 @@ class CountriesData {
     }
     
     let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;area;latlng"
-    let localStorage = LocalStorage()
     var countriesDataArray = [CountriesObj]()
 
     public func config(callback: @escaping () -> (), callbackError: @escaping () -> ()) {
@@ -32,15 +31,12 @@ class CountriesData {
                     let repos = try decoder.decode([CountriesObj].self, from: data)
                     
                     self.countriesDataArray = repos
-//                    self.localStorage.saveCountries(countries: self.countriesDataArray)
-
                     callback()
                  } catch let error {
                     print("config error: \(error)")
                     callbackError()
                  }
-               }
-              else {
+               } else {
                 print("config error: \(error!)")
                 callbackError()
             }
@@ -49,7 +45,6 @@ class CountriesData {
     }
     
     public func getCountriesFromURL() -> [CountriesObj] {
-//        print(self.localStorage.getCountries())
         return countriesDataArray
     }
     
@@ -64,7 +59,6 @@ class CountriesData {
                 callbackError()
                 return
             }
-
             locationCallback(location)
         }
     }
