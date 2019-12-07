@@ -21,7 +21,6 @@ extension UIViewController {
       view.endEditing(true)
     }
     
-    // Perry: Added this cool extension method
     class func instantiate(storyboardName: String? = nil) -> Self {
         return instantiateFromStoryboardHelper(storyboardName)
     }
