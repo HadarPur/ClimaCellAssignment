@@ -46,8 +46,8 @@
             filePath = "ClimaCell/Data/ClimaCellAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "getSession(url:apiKey:callback:callbackError:)"
             landmarkType = "7">
             <Locations>
@@ -94,8 +94,8 @@
             filePath = "ClimaCell/Data/ClimaCellAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "getSession(url:apiKey:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "ClimaCell/Data/ClimaCellAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "getSession(url:apiKey:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>

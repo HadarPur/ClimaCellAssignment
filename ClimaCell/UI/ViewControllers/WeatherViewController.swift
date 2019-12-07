@@ -182,25 +182,25 @@ class WeatherViewController: UIViewController {
     }
     
     func setupPinOnTheMap() {
-        print("Start set pin on the map.")
-        caountries.getLocationForSpecificCapital(capitalObj: chosenRecord!, callback: { (location) in
-            print("Done set pin on the map")
-            
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            self.mapView.setRegion(region, animated: true)
-            
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location.coordinate
-            annotation.title = self.capital!
-            annotation.subtitle = "\(self.country!) \(self.flag!)"
-            
-            self.mapView.addAnnotation(annotation)
-        }, callbackError: {
-            DispatchQueue.main.async {
-                FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to read the weather, please try later.", cancelButtonTitle: "Ok")
-            }
-        })
+        if !chosenRecord!.latlng.isEmpty {
+            Map().setupPin(record: chosenRecord!, map: mapView)
+        }
+        else {
+            caountries.getLocationForSpecificCapital(capitalObj: chosenRecord!, callback: { (location) in
+                print("Done set pin on the map")
+
+                let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
+                
+                let newRecord = CountriesData.CountriesObj(name: self.chosenRecord!.name, alpha2Code: self.chosenRecord!.alpha2Code, capital: self.chosenRecord!.capital, latlng: latlng,area: self.chosenRecord!.area)
+                
+                Map().setupPin(record: newRecord, map: self.mapView)
+
+            }, callbackError: {
+                DispatchQueue.main.async {
+                    FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to set pin on the map for \(self.chosenRecord!.name!), please try later.", cancelButtonTitle: "Ok")
+                }
+            })
+        }
     }
     
     func temperatureInFahrenheit(temperature: Double) -> Double {

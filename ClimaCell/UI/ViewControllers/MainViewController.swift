@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 // The main screen that shows the all capitals, countries and flags
 class MainViewController: UIViewController {
@@ -17,9 +18,11 @@ class MainViewController: UIViewController {
     let mCountries = Countries.shared
     var searchCapital = [CountriesData.CountriesObj]()
     let flags = Flags()
-    
+
     var searching = false
-        
+    let mapView = MKMapView()
+    var isMapExist = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -29,17 +32,79 @@ class MainViewController: UIViewController {
         capitalsTableView.delegate=self
         capitalsTableView.dataSource=self
         searchBar.delegate = self
+        mapView.delegate = self
         
         self.navigationController?.isNavigationBarHidden = false
         self.title = "ClimaCell"
         
         self.hideKeyboardWhenTappedAround()
+        setupBarButtons()
     }
     
     func popupViewControllerFromStack() {
         var navigationArray = self.navigationController?.viewControllers //To get all UIViewController stack as Array
         navigationArray!.remove(at: (navigationArray?.count)! - 2) // To remove previous UIViewController
         self.navigationController?.viewControllers = navigationArray!
+    }
+    
+    func setupBarButtons() {
+        let changeBarButtonItem = UIBarButtonItem(title: "Change", style: .done, target: self, action: #selector(ChangeTableToMap))
+        self.navigationItem.rightBarButtonItem  = changeBarButtonItem
+    }
+    
+    @objc func ChangeTableToMap(){
+        if isMapExist {
+            isMapExist = false
+            mapView.removeFromSuperview()
+        } else {
+            showMap()
+            isMapExist = true
+        }
+    }
+    
+    func showMap() {
+        
+        let leftMargin:CGFloat = 0
+        let topMargin:CGFloat = 0
+        let mapWidth:CGFloat = view.frame.size.width
+        let mapHeight:CGFloat = view.frame.size.height
+        
+        mapView.frame = CGRect(x: leftMargin, y: topMargin, width: mapWidth, height: mapHeight)
+        
+        mapView.mapType = MKMapType.standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        
+        // Or, if needed, we can position map in the center of the view
+        mapView.center = view.center
+        
+        view.addSubview(mapView)
+        setupPinOnTheMap()
+    }
+    
+    func setupPinOnTheMap() {
+        for chosenRecord in mCountries.getCountries() {
+                        
+            if !chosenRecord.latlng.isEmpty {
+                Map().setupPin(record: chosenRecord, map: self.mapView)
+            }
+            else {
+                mCountries.getLocationForSpecificCapital(capitalObj: chosenRecord, callback: { (location) in
+                    print("Done set pin on the map")
+
+                    let latlng: [Double] = [location.coordinate.latitude, location.coordinate.longitude]
+                    
+                    let newRecord = CountriesData.CountriesObj(name: chosenRecord.name, alpha2Code: chosenRecord.alpha2Code, capital: chosenRecord.capital, latlng: latlng,area: chosenRecord.area)
+                    
+                    Map().setupPin(record: newRecord, map: self.mapView)
+                    
+                }, callbackError: {
+                    DispatchQueue.main.async {
+                        FuncUtils().showAlertMessage(vc: self, title: "Some error has occurred", message: "There is a problem to set pin on the map for \(chosenRecord.name!), please try later.", cancelButtonTitle: "Ok")
+                    }
+                })
+            }            
+        }
     }
 }
 
@@ -89,7 +154,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(weatherViewController!, animated: true)
         }
-
     }
 }
 
@@ -102,4 +166,44 @@ extension MainViewController: UISearchBarDelegate {
         searching = true
         capitalsTableView.reloadData()
     }
+}
+
+// Map view delegate
+extension MainViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let coordinate = CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)
+        var span = mapView.region.span
+        if span.latitudeDelta < 150{ // MIN LEVEL
+            span = MKCoordinateSpan(latitudeDelta: 150, longitudeDelta: 150)
+        } else if span.latitudeDelta > 151 { // MAX LEVEL
+            span = MKCoordinateSpan(latitudeDelta: 151, longitudeDelta: 151)
+        }
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated:true)
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let pinTitle = "\(String(((view.annotation?.title)!)!))"
+        let capitalsArray = mCountries.getCountries()
+        
+        
+        let chosenCapital = capitalsArray.filter({$0.name.lowercased().prefix(pinTitle.count) == pinTitle.lowercased()})
+        
+        print("chosenCapital: \(chosenCapital)")
+
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let weatherViewController = storyBoard.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController
+
+        guard weatherViewController != nil else {
+            return
+        }
+
+        weatherViewController?.chosenRecord = chosenCapital[0]
+
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(weatherViewController!, animated: true)
+        }
+        
+    }
+    
 }

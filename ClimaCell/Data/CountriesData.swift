@@ -15,10 +15,11 @@ class CountriesData {
         let name: String!
         let alpha2Code: String!
         let capital: String!
+        var latlng: [Double]!
         let area: Float!
     }
     
-    let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;area"
+    let countriesURL = "https://restcountries.eu/rest/v2/all?fields=name;capital;alpha2Code;area;latlng"
     let localStorage = LocalStorage()
     var countriesDataArray = [CountriesObj]()
 
@@ -59,7 +60,7 @@ class CountriesData {
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(capitalLocation) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location else {
-                print("couldn't find any location: \(String(describing: error))")
+                print("couldn't find any location for \(capital): \(String(describing: error))")
                 callbackError()
                 return
             }

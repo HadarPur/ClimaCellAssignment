@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		25B4C523CBD97B5D1B603F64 /* Pods_ClimaCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CDFC9E651403DAB03A5EF4 /* Pods_ClimaCell.framework */; };
 		3E0907B0239AE9310023E2C9 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0907AF239AE9310023E2C9 /* LocalStorage.swift */; };
+		3E0907D8239BA1600023E2C9 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0907D7239BA1600023E2C9 /* Map.swift */; };
 		3E4A91D7239A35C200DDB434 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A91D6239A35C200DDB434 /* AppDelegate.swift */; };
 		3E4A91D9239A35C200DDB434 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A91D8239A35C200DDB434 /* SceneDelegate.swift */; };
 		3E4A91DB239A35C200DDB434 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A91DA239A35C200DDB434 /* LoadingViewController.swift */; };
@@ -33,6 +34,7 @@
 		22CDFC9E651403DAB03A5EF4 /* Pods_ClimaCell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClimaCell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3361A4D9DA955C442840D95E /* Pods-ClimaCell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClimaCell.release.xcconfig"; path = "Target Support Files/Pods-ClimaCell/Pods-ClimaCell.release.xcconfig"; sourceTree = "<group>"; };
 		3E0907AF239AE9310023E2C9 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		3E0907D7239BA1600023E2C9 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		3E4A91D3239A35C200DDB434 /* ClimaCell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClimaCell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E4A91D6239A35C200DDB434 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E4A91D8239A35C200DDB434 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				3E4A91EE239A390D00DDB434 /* Flags.swift */,
 				3E4A91F0239A394100DDB434 /* Countries.swift */,
 				3E4A920A239A9F0200DDB434 /* Weather.swift */,
+				3E0907D7239BA1600023E2C9 /* Map.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			files = (
 				3E4A91F5239A40A500DDB434 /* MainViewController.swift in Sources */,
 				3E4A9202239A77ED00DDB434 /* WeatherViewController.swift in Sources */,
+				3E0907D8239BA1600023E2C9 /* Map.swift in Sources */,
 				3E4A91DB239A35C200DDB434 /* LoadingViewController.swift in Sources */,
 				3E4A920D239ADB8100DDB434 /* FuncUtils.swift in Sources */,
 				3E4A91FD239A617100DDB434 /* CapitalCell.swift in Sources */,

@@ -64,38 +64,30 @@ class ClimaCellAPI {
     
     func getDataFromClimaCellAPI(area: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj>) -> (), callbackError: @escaping () -> ()) {
         self.getClimaCellKeys { (apiKey) in
-            CountriesData().getCapitalMapLocation(capital: area.capital, country: area.name, locationCallback: { (location) in
-                let lat = location.coordinate.latitude
-                let lon = location.coordinate.longitude
-                let areaCode = area.area!
-                let basicURL = self.climaCellUrl
-                let startTime = "now"
-                let fields = "temp,precipitation"
-                
-                let objURL = "\(basicURL)?location_id=\(areaCode)&lat=\(lat)&lon=\(lon)&start_time=\(startTime)&unit_system=si&fields=\(fields)"
-                self.getSession(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
-            }, callbackError: {
-                callbackError()
-            })
+            let lat = area.latlng[0]
+            let lon = area.latlng[1]
+            let areaCode = area.area!
+            let basicURL = self.climaCellUrl
+            let startTime = "now"
+            let fields = "temp,precipitation"
+            
+            let objURL = "\(basicURL)?location_id=\(areaCode)&lat=\(lat)&lon=\(lon)&start_time=\(startTime)&unit_system=si&fields=\(fields)"
+            self.getSession(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
         }
     }
     
     func getDataFromClimaCellAPI6Hours(area: CountriesData.CountriesObj ,callback: @escaping (Array<ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
         self.getClimaCellKeys { (apiKey) in
-            CountriesData().getCapitalMapLocation(capital: area.capital, country: area.name, locationCallback: { (location) in
-                let lat = location.coordinate.latitude
-                let lon = location.coordinate.longitude
-                let areaCode = area.area!
-                let basicURL = self.climaCellUrl6Hours
-                let startTime = "now"
-                let fields = "temp"
-                let timestep = 1
-                
-                let objURL = "\(basicURL)?location_id=\(areaCode)&lat=\(lat)&lon=\(lon)&&timestep=\(timestep)start_time=\(startTime)&unit_system=si&fields=\(fields)"
-                self.getSessionFor6Hours(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
-            }, callbackError: {
-                callbackError()
-            })
+            let lat = area.latlng[0]
+            let lon = area.latlng[1]
+            let areaCode = area.area!
+            let basicURL = self.climaCellUrl6Hours
+            let startTime = "now"
+            let fields = "temp"
+            let timestep = 1
+            
+            let objURL = "\(basicURL)?location_id=\(areaCode)&lat=\(lat)&lon=\(lon)&&timestep=\(timestep)start_time=\(startTime)&unit_system=si&fields=\(fields)"
+            self.getSessionFor6Hours(url: objURL, apiKey: apiKey, callback: callback, callbackError: callbackError)
         }
     }
     
