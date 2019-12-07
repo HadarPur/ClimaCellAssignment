@@ -19,7 +19,6 @@ public class Countries {
         return CData.getCountriesFromURL()
     }
 
-    //read the data from the firebase
     func readAllData(callback: @escaping () -> (), callbackError: @escaping () -> ()) {
         CData.config(callback: callback, callbackError: callbackError)
     }

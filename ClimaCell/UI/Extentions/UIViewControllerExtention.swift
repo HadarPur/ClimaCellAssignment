@@ -8,6 +8,7 @@
 
 import UIKit
 
+// UIViewController extention for mor functionality
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))

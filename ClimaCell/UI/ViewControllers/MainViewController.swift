@@ -8,6 +8,7 @@
 
 import UIKit
 
+// The main screen that shows the all capitals, countries and flags
 class MainViewController: UIViewController {
     
     @IBOutlet weak var capitalsTableView: UITableView!
@@ -35,10 +36,6 @@ class MainViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     func popupViewControllerFromStack() {
         var navigationArray = self.navigationController?.viewControllers //To get all UIViewController stack as Array
         navigationArray!.remove(at: (navigationArray?.count)! - 2) // To remove previous UIViewController
@@ -46,6 +43,7 @@ class MainViewController: UIViewController {
     }
 }
 
+// Table view delegates
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,6 +93,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// Search bar delegate
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let capitalsArray = mCountries.getCountries()

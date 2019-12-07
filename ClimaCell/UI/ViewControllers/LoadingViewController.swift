@@ -8,17 +8,20 @@
 
 import UIKit
 
+// The first VC that loadinf the all capital data with singleton
 class LoadingViewController: UIViewController {
 
     let mCountries = Countries.shared
     let utils = FuncUtils()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.navigationController?.isNavigationBarHidden = true
 
+        readAllData()
+    }
+    
+    func readAllData() {
         mCountries.readAllData(callback: {
             print("Done Reading Countries Data, Move to Main VC.")
             self.moveToMainVC()

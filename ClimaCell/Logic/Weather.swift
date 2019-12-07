@@ -14,4 +14,7 @@ class Weather {
         ClimaCellAPI().getDataFromClimaCellAPI(area: area, callback: callback, callbackError: callbackError)
     }
     
+    func getWeatherFor6Hours(area: CountriesData.CountriesObj, callback: @escaping (Array<ClimaCellAPI.ClimaCellObj6Hours>) -> (), callbackError: @escaping () -> ()) {
+        ClimaCellAPI().getDataFromClimaCellAPI6Hours(area: area, callback: callback, callbackError: callbackError)
+    }
 }

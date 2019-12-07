@@ -128,10 +128,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GAH-yL-nHO">
-                                <rect key="frame" x="0.0" y="536" width="414" height="360"/>
+                                <rect key="frame" x="0.0" y="678" width="414" height="218"/>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ako-z3-oN6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="448"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="358.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="WeatherCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WeatherCell" textLabel="4nk-ti-CWP" style="IBUITableViewCellStyleDefault" id="Dfw-BL-Tth" userLabel="WeatherCell" customClass="WeatherCell" customModule="ClimaCell" customModuleProvider="target">
@@ -160,26 +160,37 @@
                                     <outlet property="delegate" destination="ie5-Tt-Y7s" id="6gf-4O-CDO"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REe-00-al5" customClass="ScrollableGraphView" customModule="ScrollableGraphView">
+                                <rect key="frame" x="0.0" y="446.5" width="414" height="231.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Ako-z3-oN6" firstAttribute="width" secondItem="kAB-TO-ndV" secondAttribute="width" id="0IY-SL-tZ9"/>
+                            <constraint firstItem="REe-00-al5" firstAttribute="centerX" secondItem="Bto-Zu-j8L" secondAttribute="centerX" id="3wV-NT-ZL1"/>
                             <constraint firstItem="GAH-yL-nHO" firstAttribute="bottom" secondItem="Bto-Zu-j8L" secondAttribute="bottom" constant="34" id="9aw-GU-WcZ"/>
                             <constraint firstItem="Ako-z3-oN6" firstAttribute="centerX" secondItem="Bto-Zu-j8L" secondAttribute="centerX" id="CeF-b8-ASD"/>
+                            <constraint firstItem="REe-00-al5" firstAttribute="width" secondItem="kAB-TO-ndV" secondAttribute="width" id="EK2-h5-VeO"/>
+                            <constraint firstItem="Bto-Zu-j8L" firstAttribute="bottom" secondItem="REe-00-al5" secondAttribute="bottom" constant="184" id="I2c-m0-5VW"/>
                             <constraint firstItem="GAH-yL-nHO" firstAttribute="centerX" secondItem="Bto-Zu-j8L" secondAttribute="centerX" id="ISN-gJ-JWY"/>
                             <constraint firstItem="Bto-Zu-j8L" firstAttribute="trailing" secondItem="GAH-yL-nHO" secondAttribute="trailing" id="NMY-tr-OPE"/>
                             <constraint firstItem="Bto-Zu-j8L" firstAttribute="trailing" secondItem="Ako-z3-oN6" secondAttribute="trailing" id="Tuk-pM-dAJ"/>
                             <constraint firstItem="Ako-z3-oN6" firstAttribute="leading" secondItem="Bto-Zu-j8L" secondAttribute="leading" id="U1k-jW-sIv"/>
-                            <constraint firstItem="GAH-yL-nHO" firstAttribute="top" secondItem="Ako-z3-oN6" secondAttribute="bottom" id="bec-hh-Hh3"/>
                             <constraint firstItem="GAH-yL-nHO" firstAttribute="width" secondItem="kAB-TO-ndV" secondAttribute="width" id="bwU-FI-FbR"/>
+                            <constraint firstItem="REe-00-al5" firstAttribute="top" secondItem="Ako-z3-oN6" secondAttribute="bottom" id="e5g-jo-hm3"/>
                             <constraint firstItem="Ako-z3-oN6" firstAttribute="top" secondItem="Bto-Zu-j8L" secondAttribute="top" id="fbX-YL-xBd"/>
+                            <constraint firstItem="REe-00-al5" firstAttribute="leading" secondItem="Bto-Zu-j8L" secondAttribute="leading" id="jD7-Fx-RHh"/>
                             <constraint firstItem="GAH-yL-nHO" firstAttribute="leading" secondItem="Bto-Zu-j8L" secondAttribute="leading" id="lFM-6Z-RGk"/>
-                            <constraint firstItem="Ako-z3-oN6" firstAttribute="height" secondItem="kAB-TO-ndV" secondAttribute="height" multiplier="0.5" id="uaP-Ni-TVv"/>
+                            <constraint firstItem="GAH-yL-nHO" firstAttribute="top" secondItem="REe-00-al5" secondAttribute="bottom" id="uK9-sI-f7C"/>
+                            <constraint firstItem="Ako-z3-oN6" firstAttribute="height" secondItem="kAB-TO-ndV" secondAttribute="height" multiplier="0.4" id="uaP-Ni-TVv"/>
+                            <constraint firstItem="Bto-Zu-j8L" firstAttribute="trailing" secondItem="REe-00-al5" secondAttribute="trailing" id="vSZ-mv-kPt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bto-Zu-j8L"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="graphView" destination="REe-00-al5" id="2IP-xR-vNf"/>
                         <outlet property="mapView" destination="GAH-yL-nHO" id="DxK-KH-6FL"/>
                         <outlet property="weatherTableView" destination="Ako-z3-oN6" id="l5g-eX-hGD"/>
                     </connections>

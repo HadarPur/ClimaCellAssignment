@@ -7,5 +7,6 @@ target 'ClimaCell' do
 
   # Pods for ClimaCell
     pod 'NVActivityIndicatorView'
+    pod 'ScrollableGraphView'
 
 end
