@@ -1,0 +1,6 @@
+framework module FireworksKit {
+  umbrella header "FireworksKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,22 +1,45 @@
 PODS:
+  - FireworksKit (0.1.0)
+  - lottie-ios-extension (1.5.1.1)
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
   - ScrollableGraphView (4.0.6)
+  - URWeatherView (0.7.0):
+    - lottie-ios-extension
+    - URWeatherView/Core (= 0.7.0)
+  - URWeatherView/Core (0.7.0):
+    - lottie-ios-extension
 
 DEPENDENCIES:
+  - FireworksKit (from `https://github.com/lucaangeletti/FireworksKit.git`)
   - NVActivityIndicatorView
   - ScrollableGraphView
+  - URWeatherView
 
 SPEC REPOS:
   trunk:
+    - lottie-ios-extension
     - NVActivityIndicatorView
     - ScrollableGraphView
+    - URWeatherView
+
+EXTERNAL SOURCES:
+  FireworksKit:
+    :git: https://github.com/lucaangeletti/FireworksKit.git
+
+CHECKOUT OPTIONS:
+  FireworksKit:
+    :commit: 3f2c3b56bc432a2ed675ddb27aa954c96cbf344b
+    :git: https://github.com/lucaangeletti/FireworksKit.git
 
 SPEC CHECKSUMS:
+  FireworksKit: e6963282947d5bfa837541d8e8163dfad6f3db17
+  lottie-ios-extension: 219b261ba9f3d6a0cda7cf84bbfb545aa5806153
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   ScrollableGraphView: 4af35d4ea9ecdec665d34a74da51da161ddff8ac
+  URWeatherView: 4a716a83149f788220ec156047e4d0e8517835bf
 
-PODFILE CHECKSUM: a4dba60ca4ba4ab39e2de73044ea76656e55d2e7
+PODFILE CHECKSUM: d94ad12b1fa72f3443f7aa6ae70d20cb4118e6b8
 
 COCOAPODS: 1.8.4

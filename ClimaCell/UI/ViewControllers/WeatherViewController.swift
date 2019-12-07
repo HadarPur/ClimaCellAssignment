@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import ScrollableGraphView
+import FireworksKit
 
 // The weather screen who shows tableview with the weather for the next 5 days, graph with the temp for the next 6 hours, and the capital location on the map
 class WeatherViewController: UIViewController {
@@ -20,6 +21,7 @@ class WeatherViewController: UIViewController {
     let weather = Weather()
     let caountries = Countries()
     let flags = Flags()
+    var fireworksView: FireworksView?
     
     var numberOfItems: Int?
     
@@ -28,6 +30,7 @@ class WeatherViewController: UIViewController {
     var weather6NextHours = [ClimaCellAPI.ClimaCellObj6Hours]()
     
     var titleMap: String?
+    var anumationIsSet = false
     
     var capital: String?
     var country: String?
@@ -36,6 +39,7 @@ class WeatherViewController: UIViewController {
     var tempAtrrayC = [Double]()
     var tempAtrrayF = [Double]()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,12 +51,18 @@ class WeatherViewController: UIViewController {
         getWeather()
         setupArrays()
         setupGraph(tempArray: tempAtrrayC)
-        
+        setupWeatherAnim()
+
         setupBarButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         setupPinOnTheMap()
+    }
+    
+    func setupWeatherAnim() {
+        // 1. create a FireworksView
+        fireworksView = FireworksView(frame: view.frame)
     }
     
     func setupBarButtons() {
@@ -239,20 +249,28 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
         let precipitationValue = obj.precipitation[0].max.value!
         let precipitationUnit = obj.precipitation[0].max.units!
         
-        var minTemp: Double?
-        var maxTemp: Double?
-        var unit: String?
+        var minTemp = obj.temp[0].min!.value!
+        var maxTemp = obj.temp[1].max!.value!
+        var unit = obj.temp[0].min!.units!
         
-        if (isInCelsius) {
-            minTemp = obj.temp[0].min!.value!
-            maxTemp = obj.temp[1].max!.value!
-            unit = obj.temp[0].min!.units!
-        } else {
+        if !anumationIsSet {
+            var particleEffect: ParticleEffect!
+            if precipitationValue > 0.0 && minTemp > 5.0 { particleEffect = ParticleEffect(type: .rain) }
+            else if precipitationValue > 0.0 && maxTemp < 5.0 { particleEffect = ParticleEffect(type: .snow) }
+            else if maxTemp > 25.0 && precipitationValue == 0.0 { particleEffect = ParticleEffect(type: .fire) }
+            else { particleEffect = ParticleEffect(type: .smoke) }
+            anumationIsSet = true
+            fireworksView!.particleEffect = particleEffect
+            view.addSubview(fireworksView!)
+        }
+        
+        if !isInCelsius {
             minTemp = temperatureInFahrenheit(temperature: obj.temp[0].min!.value!)
             maxTemp = temperatureInFahrenheit(temperature: obj.temp[1].max!.value!)
             unit = "F"
         }
-        let text = "Date: \(date)\nMin Temp: \(minTemp!) \(unit!)\nMax Temp: \(maxTemp!) \(unit!)\nPrecipitation: \(precipitationValue) \(precipitationUnit)"
+    
+        let text = "Date: \(date)\nMin Temp: \(minTemp) \(unit)\nMax Temp: \(maxTemp) \(unit)\nPrecipitation: \(precipitationValue) \(precipitationUnit)"
         cell.textLabel?.text = text
         
         return cell

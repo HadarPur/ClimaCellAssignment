@@ -1,2 +1,5 @@
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FireworksKit.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableGraphView.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/URWeatherView.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LottieEx.framework

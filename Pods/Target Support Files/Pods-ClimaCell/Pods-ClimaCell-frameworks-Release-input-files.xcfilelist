@@ -1,3 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-ClimaCell/Pods-ClimaCell-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FireworksKit/FireworksKit.framework
 ${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework
 ${BUILT_PRODUCTS_DIR}/ScrollableGraphView/ScrollableGraphView.framework
+${BUILT_PRODUCTS_DIR}/URWeatherView/URWeatherView.framework
+${BUILT_PRODUCTS_DIR}/lottie-ios-extension/LottieEx.framework

@@ -8,5 +8,7 @@ target 'ClimaCell' do
   # Pods for ClimaCell
     pod 'NVActivityIndicatorView'
     pod 'ScrollableGraphView'
+    pod "URWeatherView"
+    pod 'FireworksKit', :git => 'https://github.com/lucaangeletti/FireworksKit.git'
 
 end

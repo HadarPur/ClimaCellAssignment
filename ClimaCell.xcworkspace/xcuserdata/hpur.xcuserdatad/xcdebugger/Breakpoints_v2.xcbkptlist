@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "getSession(url:apiKey:callback:callbackError:)"
+            landmarkName = "getDataFromClimaCellAPI6Hours(area:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
             endingLineNumber = "104"
-            landmarkName = "getSession(url:apiKey:callback:callbackError:)"
-            landmarkType = "7">
+            landmarkName = "ClimaCellAPI"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,9 +46,9 @@
             filePath = "ClimaCell/Data/ClimaCellAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "getSession(url:apiKey:callback:callbackError:)"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "getDataAPI(apiKey:area:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "getSession(url:apiKey:callback:callbackError:)"
+            landmarkName = "getDataAPI(apiKey:area:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "getSession(url:apiKey:callback:callbackError:)"
+            landmarkName = "getDataAPI(apiKey:area:callback:callbackError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
