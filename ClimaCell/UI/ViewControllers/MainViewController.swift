@@ -45,7 +45,6 @@ class MainViewController: UIViewController {
         let vc = LoadingViewController.instantiate()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: false, completion: nil)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -202,10 +201,7 @@ extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let capitalsArray = mCountries.getCountries()
         
-        searchResults = capitalsArray.filter({
-            let phrase = searchText.lowercased()
-            return $0.capital.lowercased().contains(phrase) || $0.name.lowercased().contains(phrase) || $0.alpha2Code.lowercased().contains(phrase)
-        })
+        searchResults = capitalsArray.filter({$0.capital.lowercased().prefix(searchText.count) == searchText.lowercased()})
         
         searching = true
         capitalsTableView.reloadData()
