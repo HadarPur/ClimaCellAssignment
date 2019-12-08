@@ -203,7 +203,9 @@ extension MainViewController: UISearchBarDelegate {
         
         searchResults = capitalsArray.filter({
             let phrase = searchText.lowercased()
-            return $0.capital.lowercased().prefix(searchText.count) == phrase
+            let flag = flags.flagForCountry(country: $0.alpha2Code)
+            return $0.capital.lowercased().prefix(searchText.count) == phrase || $0.name.lowercased().prefix(searchText.count) == phrase ||
+                flag == phrase
         })
         
         searching = true
