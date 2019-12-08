@@ -201,7 +201,10 @@ extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let capitalsArray = mCountries.getCountries()
         
-        searchResults = capitalsArray.filter({$0.capital.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        searchResults = capitalsArray.filter({
+            let phrase = searchText.lowercased()
+            return $0.capital.lowercased().prefix(searchText.count) == phrase
+        })
         
         searching = true
         capitalsTableView.reloadData()
