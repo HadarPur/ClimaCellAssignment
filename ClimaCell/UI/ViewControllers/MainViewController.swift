@@ -186,12 +186,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let chosenRecord = mCountries.getCountries()[indexPath.row]
-        
-        if !chosenRecord.latlng.isEmpty {
-            moveToWeatherVC(chosenRecord: chosenRecord)
+        var chosenRecord: CountriesData.CountriesObj?
+
+        if searching == true {
+            chosenRecord = searchResults[indexPath.row]
         } else {
-            setLocation(chosenRecord: chosenRecord)
+            chosenRecord = mCountries.getCountries()[indexPath.row]
+        }
+        
+        if !(chosenRecord?.latlng.isEmpty)! {
+            moveToWeatherVC(chosenRecord: chosenRecord!)
+        } else {
+            setLocation(chosenRecord: chosenRecord!)
         }
     }
 }
